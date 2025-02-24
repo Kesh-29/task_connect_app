@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">taskconnectapp</string>
+    <string name="welcome_to_task_connect">Welcome to Task Connect</string>
+    <string name="connect_people_together">Connect People together</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="toggle_password">toggle_password</string>
+    <string name="don_t_have_an_account">Don’t have an account?</string>
+    <string name="sign_up">Sign Up!</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login">Login</string>
 </resources>
