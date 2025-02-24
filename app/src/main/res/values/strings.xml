@@ -9,4 +9,21 @@
     <string name="sign_up">Sign Up!</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="login">Login</string>
+    <string name="sideicon">sideicon</string>
+    <string name="back">back</string>
+    <string name="chnage_password">Chnage Password</string>
+    <string name="please_type_something_you_ll_remember">Please Type Something you\'ll remember</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="update">Update</string>
+    <string name="resend_it">Resend it</string>
+    <string name="didn_t_get_your_code">Didn’t Get your Code?</string>
+    <string name="verify_code">Verify Code</string>
+    <string name="creating_an_account">Creating an Account</string>
+    <string name="step_2">Step 2</string>
+    <string name="please_enter_your_email_to_reset_the_password">Please enter your email to reset the password</string>
+    <string name="resetting_your_password">Resetting Your Password</string>
+    <string name="reset_password">Reset Password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fixed">Fixed</string>
 </resources>
