@@ -36,12 +36,18 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    // **Added OkHttp for making HTTP requests**
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+
+    // **Added Gson for JSON parsing (optional)**
+    implementation("com.google.code.gson:gson:2.9.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
