@@ -184,7 +184,7 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="#007BFF"
                 android:text="Proceed"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -198,10 +198,14 @@
                 android:id="@+id/tvLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
                 android:text="Login!"
                 android:textColor="@color/blue"
                 android:textStyle="bold"
-                tools:ignore="HardcodedText"/>
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -228,7 +228,6 @@
                     android:layout_height="wrap_content"
                     android:text="Negotiable"
                     tools:ignore="HardcodedText"
-                    android:background=""
                     android:textColor="@color/blue"
                     />
 
