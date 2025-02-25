@@ -25,6 +25,9 @@
             android:name=".ChangePasswordActivity"
             android:exported="false" />
         <activity
+            android:name=".Splash"
+            android:exported="false" />
+        <activity
             android:name=".LoginPage"
             android:exported="false" />
         <activity
