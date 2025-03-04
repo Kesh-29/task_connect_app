@@ -109,25 +109,28 @@
             android:layout_marginTop="20dp">
 
             <TextView
-                android:id="@+id/txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/don_t_have_an_account"
-                android:textColor="#FF000000"
+                android:textColor="@android:color/black"
                 android:paddingTop="10dp" />
 
-            <TextView
-                android:id="@+id/tvSignUp"
+            <Button
+                android:id="@+id/btnSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingTop="10dp"
+                android:background="?attr/selectableItemBackground"
                 android:text="@string/sign_up"
                 android:textColor="@color/blue"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:padding="0dp"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:stateListAnimator="@null" />
         </LinearLayout>
+
 
         <!-- Forgot Password -->
         <TextView

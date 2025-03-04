@@ -12,30 +12,27 @@
         android:layout_height="wrap_content"
         android:contentDescription="sideicon"
         android:src="@drawable/side_icon"
-        tools:ignore="HardcodedText,MissingConstraints"
-        />
+        tools:ignore="HardcodedText,MissingConstraints"/>
 
     <ImageView
         android:id="@+id/backButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/baseline_arrow_back"
-        android:contentDescription="@string/back"
-        android:padding="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="55dp"
+        android:layout_height="57dp"
         android:clickable="true"
+        android:contentDescription="Back_Button"
         android:focusable="true"
-        app:tint="@color/white"
-        tools:ignore="MissingConstraints" />
-
+        android:padding="8dp"
+        android:elevation="10dp"
+        android:src="@drawable/baseline_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backButton"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
@@ -43,18 +40,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:layout_marginTop="30dp"
             android:padding="20dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Create an Account"
-                android:gravity="center"
-                android:textSize="30sp"
-                android:textColor="@color/blue"
                 android:layout_marginBottom="10dp"
-                tools:ignore="HardcodedText"/>
+                android:gravity="center"
+                android:text="Create an Account"
+                android:textColor="@color/blue"
+                android:textSize="30sp"
+                android:layout_marginTop="50sp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -62,141 +58,106 @@
                 android:text="Please fill in your details to proceed"
                 android:gravity="center"
                 android:textColor="@color/blue"
-                android:layout_marginBottom="30dp"
-                tools:ignore="HardcodedText"/>
-
-
-<!--
-            <EditText
-                android:id="@+id/etUsername"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:autofillHints=""
-                android:background="@drawable/custom_edittext"
-                android:hint="Username"
-                android:inputType="text"
-                android:padding="10dp"
-                tools:ignore="HardcodedText,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
--->
+                android:layout_marginBottom="30dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/gray"
-                android:textColorHint="@color/gray"
-                android:textSize="16sp"
-                >
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/gray"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btnstrokes"
                     android:hint="@string/username"
                     android:inputType="text"
-                    tools:ignore="DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
-
+                    android:padding="12dp"
+                    android:layout_marginBottom="15dp"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/gray"
-                android:textColorHint="@color/gray"
-                android:textSize="16sp"
-                >
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/gray"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btnstrokes"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    tools:ignore="DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
-
+                    android:padding="12dp"
+                    android:layout_marginBottom="15dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-
-
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical">
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/gray"
+                app:prefixText="+63"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/etPhoneNumberLayout"
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/gray"
-                    android:textColorHint="@color/gray"
-                    android:textSize="16sp"
-                    app:prefixText="+63 ">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etPhoneNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/btnstrokes"
-                        android:hint="@string/phone_number"
-                        android:inputType="phone|number"
-                        android:maxLength="10"
-                        tools:ignore="DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-
-            </LinearLayout>
-
+                    android:hint="@string/phone_number"
+                    android:inputType="phone|number"
+                    android:maxLength="10"
+                    android:padding="12dp"
+                    android:layout_marginBottom="15dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:textColor="@color/gray"
-                android:textColorHint="@color/gray"
-                android:textColorLink="@color/black"
-                android:textSize="16sp"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/gray"
                 app:passwordToggleEnabled="true"
-                >
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/btnstrokes"
+                    android:layout_height="wrap_content"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    tools:ignore="DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
-
+                    android:padding="12dp"
+                    android:layout_marginBottom="15dp"/>
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:textColor="@color/gray"
-                android:textColorHint="@color/gray"
-                android:textColorLink="@color/black"
-                android:textSize="16sp"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/gray"
                 app:passwordToggleEnabled="true"
-                >
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/btnstrokes"
+                    android:layout_height="wrap_content"
                     android:hint="@string/confirm_password"
                     android:inputType="textPassword"
-                    tools:ignore="DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
-
+                    android:padding="12dp"
+                    android:layout_marginBottom="40dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -207,28 +168,7 @@
                 android:backgroundTint="#007BFF"
                 android:text="Proceed"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                tools:ignore="HardcodedText,TextContrastCheck" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Already Have an Account? "
-                android:layout_marginTop="10dp"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/tvLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                android:text="Login!"
-                android:textColor="@color/blue"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText" />
+                android:textSize="16sp"/>
         </LinearLayout>
     </ScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
