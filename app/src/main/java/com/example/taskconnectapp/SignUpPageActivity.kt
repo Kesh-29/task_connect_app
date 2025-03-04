@@ -2,27 +2,128 @@ package com.example.taskconnectapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
+import android.text.InputType
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
+
 
 class SignUpPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_sign_up_page)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val username = findViewById<TextInputEditText>(R.id.usernameField)
+        val email = findViewById<TextInputEditText>(R.id.emailField)
+        val phone = findViewById<TextInputEditText>(R.id.phoneNumberField)
+        val password = findViewById<TextInputEditText>(R.id.passwordField)
+        val confirmPassword = findViewById<TextInputEditText>(R.id.confirmPasswordField)
+        val btnRegister = findViewById<Button>(R.id.btnProceed)
+        val backButton = findViewById<ImageView>(R.id.backButton)
+
+        val passwordLayout = findViewById<TextInputLayout>(R.id.etPassword)
+        val confirmPasswordLayout = findViewById<TextInputLayout>(R.id.etConfirmPassword)
+
+        val logInButton = findViewById<Button>(R.id.btnLogIn)
+
+        logInButton.setOnClickListener {
+            val intent = Intent(this, LoginPage::class.java)
+            startActivity(intent)
         }
 
-        // Handle back button click
-        val backButton = findViewById<ImageView>(R.id.backButton)
-        backButton.setOnClickListener {
-            finish() // Close SignUpPageActivity
+        // Toggle password visibility
+        passwordLayout.setEndIconOnClickListener {
+            togglePasswordVisibility(password)
         }
+        confirmPasswordLayout.setEndIconOnClickListener {
+            togglePasswordVisibility(confirmPassword)
+        }
+
+        backButton.setOnClickListener {
+            finish() // Go back to the previous activity
+        }
+
+        btnRegister.setOnClickListener {
+            val usernameText = username.text.toString()
+            val emailText = email.text.toString()
+            val phoneText = phone.text.toString()
+            val passwordText = password.text.toString()
+            val confirmPasswordText = confirmPassword.text.toString()
+
+            if (usernameText.isNotEmpty() && emailText.isNotEmpty() && phoneText.isNotEmpty() &&
+                passwordText.isNotEmpty() && confirmPasswordText.isNotEmpty()
+            ) {
+                if (passwordText == confirmPasswordText) {
+                    registerUser(usernameText, emailText, phoneText, passwordText)
+                } else {
+                    Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "Please fill all fields!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun togglePasswordVisibility(editText: TextInputEditText) {
+        if (editText.inputType == InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD) {
+            editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        } else {
+            editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        }
+        editText.setSelection(editText.text?.length ?: 0) // Keep cursor at the end
+    }
+
+    private fun registerUser(username: String, email: String, phone: String, password: String) {
+        val url = "http://10.0.2.2/taskconnect/register.php"
+        val client = OkHttpClient()
+
+        val jsonObject = JSONObject()
+        jsonObject.put("username", username)
+        jsonObject.put("email", email)
+        jsonObject.put("mobile_no", phone) // ✅ Make sure to match the PHP field name
+        jsonObject.put("password", password)
+
+        val requestBody = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaType())
+
+        val request = Request.Builder()
+            .url(url)
+            .post(requestBody)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    Toast.makeText(applicationContext, "Registration Failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseBody = response.body?.string() ?: ""
+                println("Server Response: $responseBody") // ✅ Debugging log
+
+                val jsonResponse = JSONObject(responseBody)
+
+                runOnUiThread {
+                    when {
+                        jsonResponse.has("success") && jsonResponse.getBoolean("success") -> {
+                            Toast.makeText(applicationContext, "Registration Successful!", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                        jsonResponse.has("message") -> {
+                            Toast.makeText(applicationContext, jsonResponse.getString("message"), Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {
+                            Toast.makeText(applicationContext, "Unknown error occurred!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        })
     }
 }
