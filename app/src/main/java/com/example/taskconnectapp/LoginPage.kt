@@ -3,9 +3,10 @@ package com.example.taskconnectapp
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,13 +21,14 @@ class LoginPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
 
-        val emailEditText = findViewById<EditText>(R.id.emailEditText)
-        val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
+        // ✅ Correcting the ClassCastException issue
+        val emailInputEditText = findViewById<TextInputEditText>(R.id.email)
+        val passwordInputEditText = findViewById<TextInputEditText>(R.id.passwordEditText)
         val loginButton = findViewById<Button>(R.id.loginButton)
 
         loginButton.setOnClickListener {
-            val email = emailEditText.text.toString().trim()
-            val password = passwordEditText.text.toString().trim()
+            val email = emailInputEditText?.text.toString().trim()
+            val password = passwordInputEditText?.text.toString().trim()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 loginUser(email, password)
@@ -38,7 +40,7 @@ class LoginPage : AppCompatActivity() {
 
     private fun loginUser(email: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val url = "http://10.0.2.2/taskconnect/login.php"  // Use 10.0.2.2 for localhost in Emulator
+            val url = "http://10.0.2.2/taskconnect/login.php"
 
             val formBody = FormBody.Builder()
                 .add("email", email)
@@ -60,10 +62,9 @@ class LoginPage : AppCompatActivity() {
                         if (jsonResponse.getBoolean("success")) {
                             Toast.makeText(this@LoginPage, "Login Successful!", Toast.LENGTH_SHORT).show()
 
-                            // Navigate to MainActivity
                             val intent = Intent(this@LoginPage, HomeActivity::class.java)
                             startActivity(intent)
-                            finish() // Prevents user from coming back to LoginPage using back button
+                            finish()
                         } else {
                             Toast.makeText(this@LoginPage, jsonResponse.getString("message"), Toast.LENGTH_SHORT).show()
                         }
