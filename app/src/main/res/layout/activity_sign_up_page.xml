@@ -127,13 +127,6 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+63"
-                    android:textStyle="bold"
-                    android:paddingEnd="10dp"
-                    tools:ignore="HardcodedText,RtlSymmetry"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/etPhoneNumber"
@@ -149,7 +142,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/btnstrokes"
-                        android:hint="@string/phone_number"
+                        android:hint="@string/_63_phone_number"
                         android:inputType="phone|number"
                         tools:ignore="DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
 
@@ -209,8 +202,9 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="#007BFF"
                 android:text="Proceed"
-                android:textColor="#000000"
-                tools:ignore="HardcodedText" />
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText,TextContrastCheck" />
 
             <TextView
                 android:layout_width="wrap_content"
