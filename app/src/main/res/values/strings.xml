@@ -29,4 +29,5 @@
     <string name="change_password">Change Password</string>
     <string name="username">Username</string>
     <string name="phone_number">Phone Number</string>
+    <string name="tasker">Tasker</string>
 </resources>

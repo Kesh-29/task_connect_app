@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CitizenProfilePageActivity">
-
+    tools:context=".TaskerProfilePageActivity">
 
         <LinearLayout
             android:id="@+id/top"
@@ -74,17 +73,32 @@
                     android:contentDescription="Profile Picture"
                     tools:ignore="HardcodedText"
                     />
-
-                <TextView
-                    android:id="@+id/TvUserNameValue"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Kresner Leonardo"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText"
-                    />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/TvUserNameValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kresner Leonardo"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tasker"
+                        android:textColor="@color/blue"/>
+
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <com.google.android.material.tabs.TabLayout
@@ -204,31 +218,5 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/Question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:text="Want to be a tasker? Register as a tasker now!"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/UserInformation"
-            tools:ignore="HardcodedText"
-            />
 
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="Register"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/blue"
-            app:layout_constraintTop_toBottomOf="@+id/Question"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="HardcodedText"
-            />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

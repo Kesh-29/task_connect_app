@@ -17,6 +17,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".RegistrationOtp"
+            android:exported="false" />
+        <activity
+            android:name=".CitizenRegistrationFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TaskerProfilePageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PostingPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".CitizenProfilePageActivity"
             android:exported="false" />
         <activity
