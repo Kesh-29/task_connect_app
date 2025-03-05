@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".UserActivityActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegistrationOtp"
             android:exported="false" />
         <activity
