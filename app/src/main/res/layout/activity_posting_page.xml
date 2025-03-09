@@ -125,17 +125,19 @@
                     tools:ignore="HardcodedText,VisualLintTextFieldSize" />
 
                 <LinearLayout
+                    style="?android:attr/buttonBarStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp" >
+                    android:layout_marginBottom="20dp">
 
                     <Button
                         android:id="@+id/btnInPerson"
+                        style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/transparent"
+                        android:backgroundTint="@color/light_gray"
                         android:text="In-Person"
                         android:textColor="@color/blue"
                         android:textSize="14sp"
@@ -143,25 +145,17 @@
 
                     <Button
                         android:id="@+id/btnOnline"
+                        style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/light_gray"
                         android:text="Online"
                         android:textColor="@color/blue"
                         android:textSize="14sp"
+                        android:layout_marginStart="10dp"
                         tools:ignore="HardcodedText,TextContrastCheck,TextContrastCheck" />
 
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:autofillHints=""
-                        android:hint="Tasker Required"
-                        android:minHeight="48dp"
-                        android:textColorHint="@color/black"
-                        android:textSize="16sp"
-                        tools:ignore="HardcodedText"
-                        android:inputType="text"/>
+
 
                 </LinearLayout>
 

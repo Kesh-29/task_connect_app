@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CitizenProfilePageActivity">
+    tools:context=".CitizenProfilePageActivity"
+    tools:ignore="HardCodedText">
 
 
         <LinearLayout
@@ -22,15 +23,16 @@
 
             <ImageView
                 android:id="@+id/backButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:elevation="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_margin="16dp"
-                android:src="@drawable/baseline_arrow_back_24"
-                android:contentDescription="Back Button"
-                app:tint="@color/blue"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:contentDescription="Back Button"
+                android:elevation="10dp"
+                android:focusable="true"
+                android:src="@drawable/baseline_arrow_back_24"
+                app:tint="@color/blue"
+                tools:ignore="RedundantDescriptionCheck" />
 
 
             <TextView

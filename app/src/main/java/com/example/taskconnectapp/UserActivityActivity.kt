@@ -23,7 +23,7 @@ class UserActivityActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        profile.setOnClickListener {
+        profile.setOnClickListener {    
             val intent = Intent(this, CitizenProfilePageActivity::class.java)
             startActivity(intent)
         }
