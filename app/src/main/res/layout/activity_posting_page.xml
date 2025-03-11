@@ -39,7 +39,6 @@
                 android:padding="20dp">
 
                 <TextView
-                    android:id="@+id/question_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="What do you need done today?"
@@ -50,11 +49,12 @@
 
 
                 <EditText
+                    android:id="@+id/question_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:autofillHints=""
-                    android:hint="Title:"
+                    android:hint="Title"
                     android:inputType="text"
                     android:minHeight="48dp"
                     android:padding="10dp"
@@ -97,11 +97,12 @@
                     tools:ignore="HardcodedText"/>
 
                 <EditText
+                    android:id="@+id/contact_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:autofillHints=""
-                    android:hint="Contact Number:"
+                    android:hint="Contact Number"
                     android:inputType="phone"
                     android:minHeight="48dp"
                     android:padding="10dp"
@@ -111,11 +112,12 @@
                     tools:ignore="HardcodedText,VisualLintTextFieldSize" />
 
                 <EditText
+                    android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:autofillHints=""
-                    android:hint="Location:"
+                    android:hint="Location"
                     android:inputType="text"
                     android:minHeight="48dp"
                     android:padding="10dp"
@@ -123,41 +125,6 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText,VisualLintTextFieldSize" />
-
-                <LinearLayout
-                    style="?android:attr/buttonBarStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp">
-
-                    <Button
-                        android:id="@+id/btnInPerson"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/light_gray"
-                        android:text="In-Person"
-                        android:textColor="@color/blue"
-                        android:textSize="14sp"
-                        tools:ignore="HardcodedText,TextContrastCheck" />
-
-                    <Button
-                        android:id="@+id/btnOnline"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/light_gray"
-                        android:text="Online"
-                        android:textColor="@color/blue"
-                        android:textSize="14sp"
-                        android:layout_marginStart="10dp"
-                        tools:ignore="HardcodedText,TextContrastCheck,TextContrastCheck" />
-
-
-
-                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -178,7 +145,7 @@
                         android:id="@+id/requirementText"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:hint="Requirements:"
+                        android:hint="Requirements"
                         android:inputType="text"
                         android:textColorHint="#78909C"
                         android:textStyle="bold"
@@ -201,41 +168,15 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/BudgetText"
+                        android:id="@+id/budgetText"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:hint="PHP:"
+                        android:hint="PHP"
                         android:inputType="text"
                         android:textColorHint="#78909C"
                         android:textStyle="bold"
                         tools:ignore="HardcodedText,VisualLintTextFieldSize" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <RadioGroup
-                    android:id="@+id/radioGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/radioButton1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Negotiable"
-                        tools:ignore="HardcodedText"
-                        android:textColor="@color/blue"
-                        />
-
-                    <RadioButton
-                        android:id="@+id/radioButton2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/fixed"
-                        android:layout_marginStart="10dp"
-                        android:textColor="@color/blue"
-                        />
-                </RadioGroup>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -248,6 +189,7 @@
                     tools:ignore="HardcodedText" />
 
                 <Button
+                    android:id="@+id/postTaskButton"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/blue"
