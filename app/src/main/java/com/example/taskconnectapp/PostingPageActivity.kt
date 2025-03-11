@@ -35,24 +35,30 @@ class PostingPageActivity : AppCompatActivity() {
 
         // Submit task
         postTaskButton.setOnClickListener {
-            postTaskToServer()
+            validateAndPostTask()
         }
     }
 
-    private fun postTaskToServer() {
+    private fun validateAndPostTask() {
         val title = titleEditText.text.toString().trim()
         val description = descriptionEditText.text.toString().trim()
         val contact = contactEditText.text.toString().trim()
         val location = locationEditText.text.toString().trim()
         val requirement = requirementEditText.text.toString().trim()
         val budgetText = budgetEditText.text.toString().trim()
-        val budget = if (budgetText.isEmpty()) "0.00" else budgetText // Ensure valid format
+        val budget = if (budgetText.isEmpty()) "0.00" else budgetText // Default value
 
-        if (title.isEmpty() || description.isEmpty() || contact.isEmpty() || location.isEmpty()) {
+        // Check for empty fields (excluding 'requirement')
+        if (title.isEmpty() || description.isEmpty() || contact.isEmpty() || location.isEmpty() || budgetText.isEmpty()) {
             Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
             return
         }
 
+
+        postTaskToServer(title, description, contact, location, requirement, budget)
+    }
+
+    private fun postTaskToServer(title: String, description: String, contact: String, location: String, requirement: String, budget: String) {
         val progressDialog = ProgressDialog(this)
         progressDialog.setMessage("Posting task...")
         progressDialog.show()
@@ -60,7 +66,7 @@ class PostingPageActivity : AppCompatActivity() {
         val client = OkHttpClient()
         val requestBody = FormBody.Builder()
             .add("title", title)
-            .add("description", description)
+            .add("descript", description) // Ensure correct column name
             .add("contact_number", contact)
             .add("location", location)
             .add("requirements", requirement)
@@ -68,7 +74,7 @@ class PostingPageActivity : AppCompatActivity() {
             .build()
 
         val request = Request.Builder()
-            .url("http://10.0.2.2/post_task.php")
+            .url("http://10.0.2.2/taskconnect/post_task.php")
             .post(requestBody)
             .build()
 
