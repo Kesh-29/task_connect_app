@@ -1,35 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="Home"
         android:id="@+id/home_btn"
         android:icon="@drawable/home_icon"
-
-        />
-
+        android:title="Home"/>
     <item
-        android:title="Activity"
         android:id="@+id/activity_btn"
         android:icon="@drawable/activity_icon"
-
-        />
-
+        android:title="Activity"/>
     <item
-        android:title="Post"
         android:id="@+id/post_btn"
         android:icon="@drawable/post_icon"
-
-        />
-
+        android:title="Post"/>
     <item
-        android:title="Profile"
         android:id="@+id/profile_btn"
         android:icon="@drawable/profile_icon"
-        />
-
+        android:title="Profile"/>
 </menu>

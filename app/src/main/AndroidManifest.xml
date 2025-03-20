@@ -35,8 +35,10 @@
             android:name=".CitizenProfilePageActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".HomeFragment"
             android:exported="false" />
+        <activity android:name=".HomeActivity"
+            android:exported="false"    />
         <activity
             android:name=".SignUpPageActivity"
             android:exported="false" />

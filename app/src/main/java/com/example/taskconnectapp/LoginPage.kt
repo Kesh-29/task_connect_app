@@ -20,7 +20,6 @@ class LoginPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
 
-        // ✅ Correcting the ClassCastException issue
         val emailInputEditText = findViewById<TextInputEditText>(R.id.email)
         val passwordInputEditText = findViewById<TextInputEditText>(R.id.passwordEditText)
         val loginButton = findViewById<Button>(R.id.loginButton)
@@ -61,20 +60,24 @@ class LoginPage : AppCompatActivity() {
                 val response = client.newCall(request).execute()
                 val responseData = response.body?.string()
 
-                runOnUiThread {
-                    if (response.isSuccessful && responseData != null) {
-                        val jsonResponse = JSONObject(responseData)
-                        if (jsonResponse.getBoolean("success")) {
-                            Toast.makeText(this@LoginPage, "Login Successful!", Toast.LENGTH_SHORT).show()
-
-                            val intent = Intent(this@LoginPage, HomeActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        } else {
-                            Toast.makeText(this@LoginPage, jsonResponse.getString("message"), Toast.LENGTH_SHORT).show()
-                        }
-                    } else {
+                if (!response.isSuccessful || responseData == null) {
+                    runOnUiThread {
                         Toast.makeText(this@LoginPage, "Login Failed. Try again.", Toast.LENGTH_SHORT).show()
+                    }
+                    return@launch
+                }
+
+                val jsonResponse = JSONObject(responseData)
+                if (jsonResponse.getBoolean("success")) {
+                    runOnUiThread {
+                        Toast.makeText(this@LoginPage, "Login Successful!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@LoginPage, HomeActivity::class.java)  // ✅ Change to HomeActivity
+                        startActivity(intent)
+                        finish()
+                    }
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(this@LoginPage, jsonResponse.getString("message"), Toast.LENGTH_SHORT).show()
                     }
                 }
             } catch (e: IOException) {

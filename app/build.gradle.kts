@@ -4,6 +4,8 @@ plugins {
 }
 
 android {
+
+
     namespace = "com.example.taskconnectapp"
     compileSdk = 35
 
@@ -33,6 +35,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
 
 dependencies {

@@ -21,19 +21,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="UseCompoundDrawables">
 
-            <ImageView
-                android:id="@+id/backButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="16dp"
-                android:clickable="true"
-                android:contentDescription="Back Button"
-                android:elevation="10dp"
-                android:focusable="true"
-                android:src="@drawable/baseline_arrow_back_24"
-                app:tint="@color/blue"
-                tools:ignore="RedundantDescriptionCheck" />
-
 
             <TextView
                 android:layout_width="wrap_content"

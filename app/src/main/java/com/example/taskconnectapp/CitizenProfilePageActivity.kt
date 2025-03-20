@@ -13,7 +13,7 @@ class CitizenProfilePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_citizen_profile_page)
+        setContentView(R.layout.fragment_citizen_profile_page)
 
         // Handle system bars padding
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
