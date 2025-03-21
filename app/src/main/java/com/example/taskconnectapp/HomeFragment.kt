@@ -43,12 +43,15 @@ class HomeFragment : Fragment() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
+                if (!isAdded) return // ✅ Prevent crash if fragment is detached
                 requireActivity().runOnUiThread {
                     Toast.makeText(requireContext(), "Failed to fetch tasks: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onResponse(call: Call, response: Response) {
+                if (!isAdded) return // ✅ Prevent crash if fragment is detached
+
                 response.body?.let { responseBody ->
                     val json = responseBody.string()
                     println("JSON Response: $json") // ✅ Debugging Step
@@ -60,13 +63,14 @@ class HomeFragment : Fragment() {
                         val taskObj = jsonArray.getJSONObject(i)
                         val task = Task(
                             title = taskObj.getString("title"),
-                            postedBy = taskObj.optString("postedBy", "Unknown"), // Ensure a default value
-                            budget = taskObj.optString("budget", "PHP 0.00") // Ensure a default value
+                            postedBy = taskObj.optString("postedBy", "Unknown"),
+                            budget = taskObj.optString("budget", "PHP 0.00")
                         )
                         taskList.add(task)
                     }
 
                     requireActivity().runOnUiThread {
+                        if (!isAdded) return@runOnUiThread // ✅ Double-check before updating UI
                         taskAdapter.notifyDataSetChanged()
                     }
                 }

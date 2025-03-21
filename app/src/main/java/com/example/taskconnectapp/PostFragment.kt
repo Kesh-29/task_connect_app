@@ -84,6 +84,7 @@ class PostFragment : Fragment() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
+                if (!isAdded) return  // Prevent crashes if the fragment is detached
                 requireActivity().runOnUiThread {
                     progressDialog.dismiss()
                     Toast.makeText(requireContext(), "Failed to post task: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -91,6 +92,7 @@ class PostFragment : Fragment() {
             }
 
             override fun onResponse(call: Call, response: Response) {
+                if (!isAdded) return  // Prevent crashes if the fragment is detached
                 requireActivity().runOnUiThread {
                     progressDialog.dismiss()
                     val responseData = response.body?.string()
@@ -99,17 +101,19 @@ class PostFragment : Fragment() {
                     if (jsonObject.optBoolean("success", false)) {
                         Toast.makeText(requireContext(), "Task posted successfully!", Toast.LENGTH_SHORT).show()
 
-                        // Update Bottom Navigation Selection
+                        // ✅ First, try using popBackStack() (if it's in the back stack)
+                        if (parentFragmentManager.backStackEntryCount > 0) {
+                            parentFragmentManager.popBackStack()
+                        } else {
+                            // ✅ If not in the back stack, manually replace it with HomeFragment
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainer, HomeFragment())
+                                .commit()
+                        }
+
+                        // ✅ Also update the Bottom Navigation selection
                         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.btmNavView)
-                        bottomNav.selectedItemId = R.id.home_btn  // Replace with the actual ID of the Home menu item
-
-                        requireActivity().supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragmentContainer, HomeFragment())
-                            .commit()
-
-
-                        // Navigate back to HomeFragment using popBackStack()
-                        parentFragmentManager.popBackStack()
+                        bottomNav.selectedItemId = R.id.home_btn
                     } else {
                         val errorMsg = jsonObject.optString("message", "Unknown error")
                         Toast.makeText(requireContext(), "Failed to post task: $errorMsg", Toast.LENGTH_SHORT).show()
