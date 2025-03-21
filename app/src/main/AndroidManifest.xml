@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".UserActivityActivity"
+            android:name=".TaskDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".RegistrationOtp"
@@ -37,8 +37,9 @@
         <activity
             android:name=".HomeFragment"
             android:exported="false" />
-        <activity android:name=".HomeActivity"
-            android:exported="false"    />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
         <activity
             android:name=".SignUpPageActivity"
             android:exported="false" />

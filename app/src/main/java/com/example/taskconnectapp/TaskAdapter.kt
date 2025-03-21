@@ -1,5 +1,6 @@
 package com.example.taskconnectapp
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,16 +16,26 @@ class TaskAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<TaskA
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.task_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
         return TaskViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = taskList[position]
         holder.titleTextView.text = task.title
-        holder.nameTextView.text = "Posted by: ${task.postedBy}" // ✅ FIXED: Use postedBy
-        holder.budgetTextView.text = task.budget // ✅ No need to add "PHP", it's already formatted in get_tasks.php
+        holder.nameTextView.text = "Posted by: ${task.postedBy}"
+        holder.budgetTextView.text = task.budget
+
+        // Handle click event
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, TaskDetailsActivity::class.java).apply {
+                putExtra("title", task.title)
+                putExtra("postedBy", task.postedBy)
+                putExtra("budget", task.budget)
+            }
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount() = taskList.size
