@@ -2,6 +2,7 @@
     <string name="app_name">taskconnectapp</string>
     <string name="welcome_to_task_connect">Welcome to Task Connect</string>
     <string name="connect_people_together">Connect People together</string>
+    <string name="email_or_username">Username or Email</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="toggle_password">toggle_password</string>

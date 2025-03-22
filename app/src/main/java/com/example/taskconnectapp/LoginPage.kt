@@ -20,7 +20,7 @@ class LoginPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
 
-        val emailInputEditText = findViewById<TextInputEditText>(R.id.email)
+        val emailOrUsernameInputEditText = findViewById<TextInputEditText>(R.id.email) // Now accepts username too
         val passwordInputEditText = findViewById<TextInputEditText>(R.id.passwordEditText)
         val loginButton = findViewById<Button>(R.id.loginButton)
         val signUpButton = findViewById<Button>(R.id.btnSignUp)
@@ -31,23 +31,23 @@ class LoginPage : AppCompatActivity() {
         }
 
         loginButton.setOnClickListener {
-            val email = emailInputEditText?.text.toString().trim()
+            val emailOrUsername = emailOrUsernameInputEditText?.text.toString().trim()
             val password = passwordInputEditText?.text.toString().trim()
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                loginUser(email, password)
+            if (emailOrUsername.isNotEmpty() && password.isNotEmpty()) {
+                loginUser(emailOrUsername, password)
             } else {
-                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter your email/username and password", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun loginUser(email: String, password: String) {
+    private fun loginUser(emailOrUsername: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val url = "http://10.0.2.2/taskconnect/login.php"
 
             val formBody = FormBody.Builder()
-                .add("email", email)
+                .add("email", emailOrUsername)  // Accepts both email and username
                 .add("password", password)
                 .build()
 
@@ -60,6 +60,8 @@ class LoginPage : AppCompatActivity() {
                 val response = client.newCall(request).execute()
                 val responseData = response.body?.string()
 
+                println("Server Response: $responseData") // 🔴 Debugging
+
                 if (!response.isSuccessful || responseData == null) {
                     runOnUiThread {
                         Toast.makeText(this@LoginPage, "Login Failed. Try again.", Toast.LENGTH_SHORT).show()
@@ -67,17 +69,34 @@ class LoginPage : AppCompatActivity() {
                     return@launch
                 }
 
-                val jsonResponse = JSONObject(responseData)
-                if (jsonResponse.getBoolean("success")) {
-                    runOnUiThread {
-                        Toast.makeText(this@LoginPage, "Login Successful!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@LoginPage, HomeActivity::class.java)  // ✅ Change to HomeActivity
-                        startActivity(intent)
-                        finish()
+                try {
+                    val jsonResponse = JSONObject(responseData)
+
+                    if (jsonResponse.getBoolean("success")) {
+                        val usersId = jsonResponse.optInt("users_id", -1)
+                        if (usersId == -1) {
+                            runOnUiThread {
+                                Toast.makeText(this@LoginPage, "Error retrieving user ID", Toast.LENGTH_SHORT).show()
+                            }
+                            return@launch
+                        }
+
+                        val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+                        sharedPref.edit().putInt("users_id", usersId).apply() // Ensure it's "users_id"
+
+                        runOnUiThread {
+                            Toast.makeText(this@LoginPage, "Login Successful!", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this@LoginPage, HomeActivity::class.java))
+                            finish()
+                        }
+                    } else {
+                        runOnUiThread {
+                            Toast.makeText(this@LoginPage, jsonResponse.getString("message"), Toast.LENGTH_SHORT).show()
+                        }
                     }
-                } else {
+                } catch (e: Exception) {
                     runOnUiThread {
-                        Toast.makeText(this@LoginPage, jsonResponse.getString("message"), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginPage, "JSON Error: ${e.message}\nResponse: $responseData", Toast.LENGTH_LONG).show()
                     }
                 }
             } catch (e: IOException) {

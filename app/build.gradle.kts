@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -48,6 +49,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    kapt("com.github.bumptech.glide:compiler:4.15.1")
 
     // **Added OkHttp for making HTTP requests**
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
