@@ -129,17 +129,6 @@
             android:textSize="15sp"
             android:textStyle="bold"
             tools:ignore="HardcodedText,VisualLintTextFieldSize" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="10dp"
-            android:autofillHints=""
-            android:background="@drawable/custom_edittext"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            tools:ignore="VisualLintTextFieldSize" />
     </LinearLayout>
 
     <Button

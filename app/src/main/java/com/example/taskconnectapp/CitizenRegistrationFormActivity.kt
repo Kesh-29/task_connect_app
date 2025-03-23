@@ -11,7 +11,7 @@ class CitizenRegistrationFormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_citizen_registration_form)
+        setContentView(R.layout.registration_form)
 
 
 
