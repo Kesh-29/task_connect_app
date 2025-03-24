@@ -102,7 +102,7 @@
                 app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/SurnameField"
+                    android:id="@+id/LastNameField"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:inputType="text"

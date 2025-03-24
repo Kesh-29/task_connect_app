@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+
 
     <application
         android:allowBackup="true"
@@ -23,16 +26,10 @@
             android:name=".RegistrationOtp"
             android:exported="false" />
         <activity
-            android:name=".CitizenRegistrationFormActivity"
+            android:name=".RegistrationFormActivity"
             android:exported="false" />
         <activity
             android:name=".TaskerProfilePageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PostingPageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CitizenProfilePageActivity"
             android:exported="false" />
         <activity
             android:name=".HomeFragment"

@@ -19,6 +19,8 @@ class SignUpPageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_page)
 
+        val firstName = findViewById<TextInputEditText>(R.id.FirstNameField)
+        val lastName = findViewById<TextInputEditText>(R.id.LastNameField)
         val username = findViewById<TextInputEditText>(R.id.usernameField)
         val email = findViewById<TextInputEditText>(R.id.emailField)
         val phone = findViewById<TextInputEditText>(R.id.phoneNumberField)
@@ -50,17 +52,19 @@ class SignUpPageActivity : AppCompatActivity() {
         }
 
         btnRegister.setOnClickListener {
+            val firstNameText = firstName.text.toString()
+            val lastNameText = lastName.text.toString()
             val usernameText = username.text.toString()
             val emailText = email.text.toString()
             val phoneText = phone.text.toString()
             val passwordText = password.text.toString()
             val confirmPasswordText = confirmPassword.text.toString()
 
-            if (usernameText.isNotEmpty() && emailText.isNotEmpty() && phoneText.isNotEmpty() &&
-                passwordText.isNotEmpty() && confirmPasswordText.isNotEmpty()
-            ) {
+            if (firstNameText.isNotEmpty() && lastNameText.isNotEmpty() && usernameText.isNotEmpty() &&
+                emailText.isNotEmpty() && phoneText.isNotEmpty() && passwordText.isNotEmpty() && confirmPasswordText.isNotEmpty()) {
+
                 if (passwordText == confirmPasswordText) {
-                    registerUser(usernameText, emailText, phoneText, passwordText)
+                    registerUser(firstNameText, lastNameText, usernameText, emailText, phoneText, passwordText)
                 } else {
                     Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show()
                 }
@@ -79,14 +83,16 @@ class SignUpPageActivity : AppCompatActivity() {
         editText.setSelection(editText.text?.length ?: 0) // Keep cursor at the end
     }
 
-    private fun registerUser(username: String, email: String, phone: String, password: String) {
+    private fun registerUser(firstName: String, lastName: String, username: String, email: String, phone: String, password: String) {
         val url = "http://10.0.2.2/taskconnect/register.php"
         val client = OkHttpClient()
 
         val jsonObject = JSONObject()
+        jsonObject.put("first_name", firstName)  // ✅ Added first_name
+        jsonObject.put("last_name", lastName)    // ✅ Added last_name
         jsonObject.put("username", username)
         jsonObject.put("email", email)
-        jsonObject.put("mobile_no", phone) // ✅ Make sure to match the PHP field name
+        jsonObject.put("mobile_no", phone)
         jsonObject.put("password", password)
 
         val requestBody = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaType())
@@ -99,28 +105,39 @@ class SignUpPageActivity : AppCompatActivity() {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread {
-                    Toast.makeText(applicationContext, "Registration Failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Registration Failed: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body?.string() ?: ""
-                println("Server Response: $responseBody") // ✅ Debugging log
+                val responseBody = response.body?.string()?.trim() ?: ""
 
-                val jsonResponse = JSONObject(responseBody)
+                if (responseBody.isEmpty()) {
+                    runOnUiThread {
+                        Toast.makeText(applicationContext, "Username Already Taken!", Toast.LENGTH_SHORT).show()
+                    }
+                    return
+                }
 
-                runOnUiThread {
-                    when {
-                        jsonResponse.has("success") && jsonResponse.getBoolean("success") -> {
-                            Toast.makeText(applicationContext, "Registration Successful!", Toast.LENGTH_SHORT).show()
-                            finish()
+                try {
+                    val jsonResponse = JSONObject(responseBody)
+                    runOnUiThread {
+                        when {
+                            jsonResponse.has("success") && jsonResponse.getBoolean("success") -> {
+                                Toast.makeText(applicationContext, "Registration Successful!", Toast.LENGTH_SHORT).show()
+                                finish()
+                            }
+                            jsonResponse.has("message") -> {
+                                Toast.makeText(applicationContext, jsonResponse.getString("message"), Toast.LENGTH_SHORT).show()
+                            }
+                            else -> {
+                                Toast.makeText(applicationContext, "Unknown error occurred!", Toast.LENGTH_SHORT).show()
+                            }
                         }
-                        jsonResponse.has("message") -> {
-                            Toast.makeText(applicationContext, jsonResponse.getString("message"), Toast.LENGTH_SHORT).show()
-                        }
-                        else -> {
-                            Toast.makeText(applicationContext, "Unknown error occurred!", Toast.LENGTH_SHORT).show()
-                        }
+                    }
+                } catch (e: Exception) {
+                    runOnUiThread {
+                        Toast.makeText(applicationContext, "Error parsing server response!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

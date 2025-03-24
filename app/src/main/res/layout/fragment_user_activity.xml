@@ -6,7 +6,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserActivityActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".UserActivityFragment">
 
 
     <TextView
@@ -15,12 +16,11 @@
         android:layout_height="wrap_content"
         android:text="ACTIVITY"
         android:textStyle="bold"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="@color/blue"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/lineImage"
+        android:layout_marginStart="0dp"
         tools:ignore="HardCodedText"/>
 
 
@@ -34,21 +34,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_Activity"
         tools:ignore="ContentDescription,ImageContrastCheck" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/btmNavView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/blue"
-        app:itemIconSize="30dp"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        tools:ignore="VisualLintBottomNav"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

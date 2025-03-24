@@ -6,7 +6,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CitizenRegistrationFormActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".RegistrationFormActivity">
 
     <LinearLayout
         android:id="@+id/top"
@@ -54,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@id/top"
         tools:layout_editor_absoluteY="82dp">
 
         <TextView
@@ -85,12 +86,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="@color/blue"
             android:text="File Upload"
             android:textColor="@android:color/white"
             app:cornerRadius="5dp"
             tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/selectedImagePreview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 
         <TextView
             android:layout_width="match_parent"
@@ -101,32 +114,58 @@
             android:textSize="18sp"
             tools:ignore="HardcodedText" />
 
-        <EditText
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:autofillHints=""
-            android:hint="Contact Number:"
-            android:inputType="phone"
-            android:minHeight="48dp"
-            android:padding="10dp"
-            android:textColorHint="#78909C"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText,VisualLintTextFieldSize" />
+            android:orientation="horizontal">
 
-        <EditText
-            android:layout_width="match_parent"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="Contact Number:"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,VisualLintTextFieldSize" />
+
+            <TextView
+                android:id="@+id/contactNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="number here"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:autofillHints=""
-            android:hint="Location:"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText,VisualLintTextFieldSize" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="Location:"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,VisualLintTextFieldSize" />
+
+            <TextView
+                android:id="@+id/locationTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="location here"
+                android:textSize="16sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <Button

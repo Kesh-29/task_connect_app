@@ -14,7 +14,7 @@ class TaskDetailsActivity : AppCompatActivity() {
         val budget = intent.getStringExtra("budget")
 
         findViewById<TextView>(R.id.taskTitleDetail).text = title
-        findViewById<TextView>(R.id.taskPostedByDetail).text = "Posted by: $postedBy"
+        findViewById<TextView>(R.id.userName).text = "Posted by: $postedBy"
         findViewById<TextView>(R.id.taskBudgetDetail).text = budget
     }
 }

@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:fitsSystemWindows="true"
+    tools:context=".HomeFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewTasks"
+    <TextView
+        android:id="@+id/tv_explore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EXPLORE"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/blue"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/lineImage"
+        android:layout_marginStart="0dp"
+        tools:ignore="HardcodedText"/>
+
+    <ImageView
+        android:id="@+id/lineImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/line_img"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ContentDescription"
+        app:layout_constraintTop_toBottomOf="@id/tv_explore"
+        />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_marginTop="40sp">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTasks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

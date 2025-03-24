@@ -23,6 +23,7 @@
         private lateinit var tvUserLocation: TextView
         private lateinit var tvUserPhoneNumber: TextView
         private lateinit var logoutButton: Button
+        private lateinit var registrationButtonn: Button
 
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +37,7 @@
             tvJoinedDate = view.findViewById(R.id.joinedDate)
             tvUserLocation = view.findViewById(R.id.UserLocation)
             tvUserPhoneNumber = view.findViewById(R.id.UserPhoneNumber)
+            registrationButtonn = view.findViewById(R.id.Register_Button)
             logoutButton = view.findViewById(R.id.logoutbtn)
 
             // Fetch user ID from SharedPreferences
@@ -55,6 +57,11 @@
                 val intent = Intent(requireActivity(), LoginPage::class.java)
                 startActivity(intent)
                 requireActivity().finish() // Finish current activity
+            }
+
+            registrationButtonn.setOnClickListener {
+                val intent = Intent(requireActivity(), RegistrationFormActivity::class.java)
+                startActivity(intent)
             }
 
 
