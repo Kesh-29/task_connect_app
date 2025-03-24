@@ -43,7 +43,7 @@
             android:id="@+id/profileSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:padding="10dp"
             android:orientation="vertical"
             android:layout_marginStart="10dp"
@@ -211,37 +211,7 @@
                     />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Want to be a tasker? Register as a tasker now!"
-                android:layout_gravity="center"
-                android:layout_marginTop="170dp"
-                tools:ignore="HardCodedText"
-                />
 
-            <Button
-                android:id="@+id/Register_Button"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:text="Register"
-                android:textSize="15sp"
-                android:textColor="@color/white"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/blue"
-                tools:ignore="HardcodedText" />
-
-            <Button
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:text="Logout"
-                android:textSize="15sp"
-                android:textColor="@color/white"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/black"
-                tools:ignore="HardcodedText" />
 
 
         </LinearLayout>
