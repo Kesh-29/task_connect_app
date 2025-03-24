@@ -162,15 +162,7 @@
                     tools:ignore="HardcodedText,VisualLintTextFieldSize" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Done?"
-                android:textColor="@color/blue"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                tools:ignore="HardcodedText" />
+
 
             <Button
                 android:id="@+id/postTaskButton"
@@ -181,8 +173,27 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:layout_marginTop="20dp"
-                tools:ignore="HardcodedText"/>
+                android:layout_marginBottom="70dp"
+                tools:ignore="HardcodedText"
+
+                />
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btmNavView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu"
+        tools:ignore="VisualLintBottomNav">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
