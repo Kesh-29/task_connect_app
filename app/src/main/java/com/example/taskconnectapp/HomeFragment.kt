@@ -27,7 +27,8 @@ class HomeFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerViewTasks)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        taskAdapter = TaskAdapter(taskList)
+        // ✅ Fix: Pass context when initializing TaskAdapter
+        taskAdapter = TaskAdapter(requireContext(), taskList)
         recyclerView.adapter = taskAdapter
 
         fetchTasks()
@@ -43,18 +44,18 @@ class HomeFragment : Fragment() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                if (!isAdded) return // ✅ Prevent crash if fragment is detached
+                if (!isAdded) return
                 requireActivity().runOnUiThread {
                     Toast.makeText(requireContext(), "Failed to fetch tasks: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onResponse(call: Call, response: Response) {
-                if (!isAdded) return // ✅ Prevent crash if fragment is detached
+                if (!isAdded) return
 
                 response.body?.let { responseBody ->
                     val json = responseBody.string()
-                    println("JSON Response: $json") // ✅ Debugging Step
+                    println("JSON Response: $json")
 
                     val jsonArray = JSONArray(json)
 
@@ -64,13 +65,14 @@ class HomeFragment : Fragment() {
                         val task = Task(
                             title = taskObj.getString("title"),
                             postedBy = taskObj.optString("postedBy", "Unknown"),
-                            budget = taskObj.optString("budget", "PHP 0.00")
+                            budget = taskObj.optString("budget", "PHP 0.00"),
+                            taskId = taskObj.getString("task_id") // Ensure taskId is a String
                         )
                         taskList.add(task)
                     }
 
                     requireActivity().runOnUiThread {
-                        if (!isAdded) return@runOnUiThread // ✅ Double-check before updating UI
+                        if (!isAdded) return@runOnUiThread
                         taskAdapter.notifyDataSetChanged()
                     }
                 }

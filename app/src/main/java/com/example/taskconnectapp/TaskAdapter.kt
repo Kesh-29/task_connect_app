@@ -1,5 +1,6 @@
 package com.example.taskconnectapp
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TaskAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(private val context: Context, private val taskList: List<Task>) :
+    RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleTextView: TextView = view.findViewById(R.id.taskTitle)
@@ -16,7 +18,7 @@ class TaskAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<TaskA
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.task_item, parent, false)
         return TaskViewHolder(view)
     }
 
@@ -26,15 +28,10 @@ class TaskAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<TaskA
         holder.nameTextView.text = "Posted by: ${task.postedBy}"
         holder.budgetTextView.text = task.budget
 
-        // Handle click event
         holder.itemView.setOnClickListener {
-            val context = holder.itemView.context
-            val intent = Intent(context, TaskDetailsActivity::class.java).apply {
-                putExtra("title", task.title)
-                putExtra("postedBy", task.postedBy)
-                putExtra("budget", task.budget)
-            }
-            context.startActivity(intent)
+            val intent = Intent(holder.itemView.context, TaskDetailsActivity::class.java)
+            intent.putExtra("task_id", task.taskId) // UUID as String
+            holder.itemView.context.startActivity(intent)
         }
     }
 

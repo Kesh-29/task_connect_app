@@ -74,6 +74,8 @@ class LoginPage : AppCompatActivity() {
 
                     if (jsonResponse.getBoolean("success")) {
                         val usersId = jsonResponse.optInt("users_id", -1)
+                        val isTasker = jsonResponse.optInt("is_tasker", 0) // Retrieve `is_tasker`
+
                         if (usersId == -1) {
                             runOnUiThread {
                                 Toast.makeText(this@LoginPage, "Error retrieving user ID", Toast.LENGTH_SHORT).show()
@@ -82,7 +84,14 @@ class LoginPage : AppCompatActivity() {
                         }
 
                         val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-                        sharedPref.edit().putInt("users_id", usersId).apply() // Ensure it's "users_id"
+                        sharedPref.edit()
+                            .putInt("users_id", usersId) // Save users_id
+                            .putInt("is_tasker", isTasker) // Save is_tasker
+                            .apply()
+
+                        // 🔴 Debugging: Print users_id and is_tasker after login
+                        println("DEBUG: Saved users_id -> $usersId")
+                        println("DEBUG: Saved is_tasker -> $isTasker")
 
                         runOnUiThread {
                             Toast.makeText(this@LoginPage, "Login Successful!", Toast.LENGTH_SHORT).show()

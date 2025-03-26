@@ -1,6 +1,6 @@
 package com.example.taskconnectapp
 
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.content.Context
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
+import android.util.Log
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class PostFragment : Fragment() {
     private lateinit var titleEditText: EditText
@@ -53,14 +55,25 @@ class PostFragment : Fragment() {
         val budgetText = budgetEditText.text.toString().trim()
         val budget = if (budgetText.isEmpty()) "0.00" else budgetText
 
-        // Check for empty fields
+        // ✅ Check for empty fields
         if (title.isEmpty() || description.isEmpty() || contact.isEmpty() || location.isEmpty() || budgetText.isEmpty()) {
-            Toast.makeText(requireContext(), "Please fill in all required fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Please fill in all required fields",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        // ✅ Validate contact number (Must be 11 digits and start with "09")
+        if (!contact.matches(Regex("^09\\d{9}\$"))) {
+            Toast.makeText(requireContext(), "Invalid Contact Number, Use The Philippines Telephone Number Code", Toast.LENGTH_SHORT).show()
             return
         }
 
         postTaskToServer(title, description, contact, location, requirement, budget)
     }
+
 
     private fun postTaskToServer(title: String, description: String, contact: String, location: String, requirement: String, budget: String) {
         val progressDialog = ProgressDialog(requireContext())
@@ -68,6 +81,8 @@ class PostFragment : Fragment() {
         progressDialog.show()
 
         val client = OkHttpClient()
+        val userId = getUserIdFromSession()
+
         val requestBody = FormBody.Builder()
             .add("title", title)
             .add("descript", description)
@@ -75,6 +90,7 @@ class PostFragment : Fragment() {
             .add("location", location)
             .add("requirements", requirement)
             .add("budget", budget)
+            .add("users_id", userId)
             .build()
 
         val request = Request.Builder()
@@ -84,7 +100,7 @@ class PostFragment : Fragment() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                if (!isAdded) return  // Prevent crashes if the fragment is detached
+                if (!isAdded) return
                 requireActivity().runOnUiThread {
                     progressDialog.dismiss()
                     Toast.makeText(requireContext(), "Failed to post task: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -92,7 +108,7 @@ class PostFragment : Fragment() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                if (!isAdded) return  // Prevent crashes if the fragment is detached
+                if (!isAdded) return
                 requireActivity().runOnUiThread {
                     progressDialog.dismiss()
                     val responseData = response.body?.string()
@@ -101,7 +117,7 @@ class PostFragment : Fragment() {
                     if (jsonObject.optBoolean("success", false)) {
                         Toast.makeText(requireContext(), "Task posted successfully!", Toast.LENGTH_SHORT).show()
 
-                        // ✅ First, try using popBackStack() (if it's in the back stack)
+                        // ✅ Return to HomeFragment after posting the task
                         if (parentFragmentManager.backStackEntryCount > 0) {
                             parentFragmentManager.popBackStack()
                         } else {
@@ -114,6 +130,7 @@ class PostFragment : Fragment() {
                         // ✅ Also update the Bottom Navigation selection
                         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.btmNavView)
                         bottomNav.selectedItemId = R.id.home_btn
+
                     } else {
                         val errorMsg = jsonObject.optString("message", "Unknown error")
                         Toast.makeText(requireContext(), "Failed to post task: $errorMsg", Toast.LENGTH_SHORT).show()
@@ -121,5 +138,16 @@ class PostFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun getUserIdFromSession(): String {
+        val sharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("users_id", -1)
+
+        // 🔴 Debugging
+        println("DEBUG: Retrieved users_id -> $userId")
+        Log.d("PostTask", "users_id retrieved from session: $userId")
+
+        return if (userId == -1) "" else userId.toString()
     }
 }
