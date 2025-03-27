@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 class TaskAdapter(private val context: Context, private val taskList: List<Task>) :
     RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
+    private var onItemClickListener: ((Task) -> Unit)? = null
+
     class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleTextView: TextView = view.findViewById(R.id.taskTitle)
         val nameTextView: TextView = view.findViewById(R.id.taskPostedBy)
@@ -29,10 +31,13 @@ class TaskAdapter(private val context: Context, private val taskList: List<Task>
         holder.budgetTextView.text = task.budget
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, TaskDetailsActivity::class.java)
-            intent.putExtra("task_id", task.taskId) // UUID as String
-            holder.itemView.context.startActivity(intent)
+
+            onItemClickListener?.invoke(task)
         }
+    }
+
+    fun setOnItemClickListener(listener: (Task) -> Unit) { // ✅ Set Click Listener
+        onItemClickListener = listener
     }
 
     override fun getItemCount() = taskList.size

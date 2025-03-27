@@ -1,6 +1,7 @@
 package com.example.taskconnectapp
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -48,7 +49,14 @@ class UserActivityFragment : Fragment() {
         taskAdapter = TaskAdapter(requireContext(), taskList)
         recyclerView.adapter = taskAdapter
 
-        // Handle tab selection
+        // ✅ Make task items clickable
+        taskAdapter.setOnItemClickListener { task ->
+            val intent = Intent(requireContext(), TaskDetailsActivity::class.java)
+            intent.putExtra("task_id", task.taskId)
+            startActivity(intent)
+        }
+
+        // ✅ Refresh tasks when switching tabs
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 fetchTasks()
@@ -135,17 +143,16 @@ class UserActivityFragment : Fragment() {
 
                     requireActivity().runOnUiThread {
                         if (taskList.isEmpty()) {
-                            txtNoTasks.text = if (selectedTab == 0) "No Posted Tasks" else "No Accepted Tasks"
                             txtNoTasks.visibility = View.VISIBLE
-                            recyclerView.visibility = View.VISIBLE // ✅ Keep RecyclerView visible for debugging
-                            Log.d("UserActivityFragment", "No tasks found, keeping RecyclerView visible")
+                            recyclerView.visibility = View.GONE
                         } else {
                             txtNoTasks.visibility = View.GONE
                             recyclerView.visibility = View.VISIBLE
+
                             taskAdapter.notifyDataSetChanged()
-                            Log.d("UserActivityFragment", "Tasks found: ${taskList.size}, updating RecyclerView")
                         }
                     }
+
                 } catch (e: JSONException) {
                     Log.e("UserActivityFragment", "JSON Error: ${e.message}")
                     requireActivity().runOnUiThread {

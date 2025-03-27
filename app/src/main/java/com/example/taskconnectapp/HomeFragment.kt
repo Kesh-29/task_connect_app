@@ -1,10 +1,12 @@
 package com.example.taskconnectapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,14 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var taskAdapter: TaskAdapter
     private val taskList = mutableListOf<Task>()
+
+    private val taskDetailsLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == android.app.Activity.RESULT_OK) {
+                fetchTasks() // Refresh tasks when returning
+            }
+        }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +42,13 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = taskAdapter
 
         fetchTasks()
+
+        taskAdapter.setOnItemClickListener { task ->
+            val intent = Intent(requireContext(), TaskDetailsActivity::class.java).apply {
+                putExtra("task_id", task.taskId)
+            }
+            taskDetailsLauncher.launch(intent) // ✅ This is now the ONLY way TaskDetailsActivity is started
+        }
 
         return view
     }
@@ -60,15 +77,19 @@ class HomeFragment : Fragment() {
                     val jsonArray = JSONArray(json)
 
                     taskList.clear()
+
+
                     for (i in 0 until jsonArray.length()) {
                         val taskObj = jsonArray.getJSONObject(i)
-                        val task = Task(
-                            title = taskObj.getString("title"),
-                            postedBy = taskObj.optString("postedBy", "Unknown"),
-                            budget = taskObj.optString("budget", "PHP 0.00"),
-                            taskId = taskObj.getString("task_id") // Ensure taskId is a String
-                        )
-                        taskList.add(task)
+                        if (taskObj.getString("status") == "pending") {
+                            val task = Task(
+                                title = taskObj.getString("title"),
+                                postedBy = taskObj.optString("postedBy", "Unknown"),
+                                budget = taskObj.optString("budget", "PHP 0.00"),
+                                taskId = taskObj.getString("task_id") // Ensure taskId is a String
+                            )
+                            taskList.add(task)
+                        }
                     }
 
                     requireActivity().runOnUiThread {
@@ -79,4 +100,5 @@ class HomeFragment : Fragment() {
             }
         })
     }
+
 }

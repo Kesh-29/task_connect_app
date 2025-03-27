@@ -48,6 +48,8 @@
             android:id="@+id/recyclerViewTasks"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="80dp"
             android:scrollbars="vertical"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

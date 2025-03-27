@@ -35,35 +35,40 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_Profile"
         tools:ignore="ContentDescription,ImageContrastCheck" />
 
+    <LinearLayout
+        android:id="@+id/profileSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_Profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
         <LinearLayout
-            android:id="@+id/profileSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_Profile"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/ivUserProfile"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/user_profile"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="Profile Picture"
+                tools:ignore="HardcodedText"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:id="@+id/ivUserProfile"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/user_profile"
-                    android:layout_marginEnd="16dp"
-                    android:contentDescription="Profile Picture"
-                    tools:ignore="HardcodedText"
-                    />
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/TvUserNameValue"
@@ -75,40 +80,54 @@
                     android:textStyle="bold"
                     tools:ignore="HardcodedText"
                     />
+
+                <TextView
+                    android:id="@+id/TvIsTasker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tasker"
+                    android:textColor="@color/blue"/>
             </LinearLayout>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabIndicatorColor="@color/blue"
-                app:tabTextColor="@android:color/darker_gray"
-                app:tabSelectedTextColor="@color/black"
-                android:layout_marginTop="16dp">
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tabAboutMe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="About me"
-                    tools:ignore="HardcodedText" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tabTaskHistory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Task History"
-                    tools:ignore="HardcodedText" />
-            </com.google.android.material.tabs.TabLayout>
         </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/blue"
+        app:tabTextColor="@android:color/darker_gray"
+        app:tabSelectedTextColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/profileSection"
+        android:layout_marginTop="16dp">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabAboutMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About me"
+            android:elevation="10dp"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabTaskHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Completed Tasks"
+            android:elevation="10dp"
+            tools:ignore="HardcodedText" />
+    </com.google.android.material.tabs.TabLayout>
 
     <LinearLayout
         android:id="@+id/UserInformation"
         android:layout_width="412dp"
-        android:layout_height="520dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileSection">
@@ -189,13 +208,27 @@
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/profileBtnGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/UserInformation"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:layout_marginTop="530sp"
+        android:paddingBottom="50sp"
+        android:clipToPadding="false">
 
         <TextView
             android:id="@+id/questionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="170dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout"
             android:text="Want to be a tasker? Register as a tasker now!"
             tools:ignore="HardCodedText" />
 
@@ -204,7 +237,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:backgroundTint="@color/blue"
             android:text="Register"
             android:textColor="@color/white"
@@ -217,11 +250,51 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/black"
             android:text="Logout"
             android:textColor="@color/white"
             android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/Register_Button"
             tools:ignore="HardcodedText" />
     </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/taskHistoryContainer"
+        android:layout_width="412dp"
+        android:layout_height="470dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"
+        android:padding="10dp"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="189dp"
+        tools:ignore="NotSibling"
+        android:paddingBottom="80dp"
+        android:clipToPadding="false">
+
+        <TextView
+            android:id="@+id/tvNoCompletedTasks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Completed Tasks Yet"
+            android:textSize="16sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTaskHistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:scrollbars="vertical"
+            android:visibility="gone"
+            tools:listitem="@layout/task_history_item" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
