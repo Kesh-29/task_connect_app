@@ -18,6 +18,7 @@
             android:id="@+id/input_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical"
             android:gravity="center"
             android:padding="20dp">
@@ -25,8 +26,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="What do you need done today?"
-                android:textSize="24sp"
+                android:text="What do you need to done today?"
+                android:textSize="23sp"
                 android:textStyle="bold"
                 android:textColor="@color/blue"
                 tools:ignore="HardcodedText"/>
@@ -133,7 +134,7 @@
                     android:inputType="text"
                     android:textColorHint="#78909C"
                     android:textStyle="bold"
-                    tools:ignore="HardcodedText,VisualLintTextFieldSize" />
+                    tools:ignore="HardcodedText,VisualLintTextFieldSize,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -155,24 +156,24 @@
                     android:id="@+id/budgetText"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint= "PHP"
+                    android:hint="PHP"
                     android:inputType="number"
                     android:textColorHint="#78909C"
                     android:textStyle="bold"
-                    tools:ignore="HardcodedText,VisualLintTextFieldSize" />
+                    tools:ignore="HardcodedText,VisualLintTextFieldSize,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
 
             <Button
                 android:id="@+id/postTaskButton"
-                android:layout_width="150dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/blue"
                 android:text="POST TASK"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginBottom="70dp"
                 tools:ignore="HardcodedText"
 

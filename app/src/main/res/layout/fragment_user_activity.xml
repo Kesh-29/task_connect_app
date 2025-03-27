@@ -51,13 +51,18 @@
             android:id="@+id/tabPosted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Posted Tasks"/>
+            android:text="Posted Tasks"
+            tools:ignore="HardCodedText"/>
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabAccepted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Accepted Tasks"/>
+            android:text="Accepted Tasks"
+            tools:ignore="HardCodedText"
+
+            />
+
     </com.google.android.material.tabs.TabLayout>
 
     <TextView
@@ -72,7 +77,9 @@
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/tabLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="HardCodedText"
+        />
 
     <!-- Register as Tasker Button -->
     <Button
@@ -84,7 +91,9 @@
         app:layout_constraintTop_toBottomOf="@id/tabLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        tools:ignore="HardCodedText"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
