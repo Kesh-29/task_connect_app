@@ -11,7 +11,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="sideicon"
+        android:contentDescription="side_icon"
         android:src="@drawable/side_icon"
         tools:ignore="HardcodedText,MissingConstraints" />
 
@@ -76,7 +76,9 @@
                 app:boxCornerRadiusTopStart="12dp"
                 app:boxCornerRadiusTopEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp">
+                app:boxCornerRadiusBottomEnd="12dp"
+                tools:ignore="HardCodedText"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/FirstNameField"
