@@ -7,4 +7,182 @@
     android:layout_height="match_parent"
     tools:context=".EditProfile">
 
+    <TextView
+        android:id="@+id/tv_Profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="EDIT PROFILE"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/blue"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/lineImage"
+        android:layout_marginStart="0dp"
+        tools:ignore="HardCodedText"/>
+
+
+    <ImageView
+        android:id="@+id/lineImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/line_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Profile"
+        tools:ignore="ContentDescription,ImageContrastCheck" />
+
+    <LinearLayout
+        android:id="@+id/UserInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:contentDescription="Edit Profile"
+        tools:ignore="HardCodedText"
+        app:layout_constraintTop_toBottomOf="@id/lineImage"
+        >
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/user_profile"
+            android:contentDescription="User Profile"
+            tools:ignore="HardCodedText"
+            />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:hint="@string/username"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/blue"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/usernameField"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/UserEditLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Location"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/blue"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/locationField"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/userPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/phone_number"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/blue"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phoneNumberField"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="phone|number"
+                android:maxLength="11"
+                android:textSize="16sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/UserChangePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="@color/blue"
+        android:text="Change Password"
+        app:layout_constraintTop_toBottomOf="@id/UserInformation"
+        tools:ignore="HardCodedText,MissingConstraints"
+        tools:layout_editor_absoluteX="20dp" />
+
+
+    <LinearLayout
+        android:id="@+id/profileBtnGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/UserInformation"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:layout_marginTop="530sp"
+        android:paddingBottom="50sp"
+        android:clipToPadding="false">
+
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="@color/blue"
+            android:text="Update"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:cornerRadius="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/UserChangePassword"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/black"
+            android:text="Cancel"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:cornerRadius="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/Register_Button"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
