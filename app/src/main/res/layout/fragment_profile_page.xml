@@ -59,14 +59,14 @@
                 android:id="@+id/ivUserProfile"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/user_profile"
+                android:layout_marginBottom="10dp"
                 android:layout_marginEnd="16dp"
                 android:contentDescription="Profile Picture"
-                tools:ignore="HardcodedText"
-                />
+                android:src="@drawable/user_profile"
+                tools:ignore="HardcodedText" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -74,6 +74,7 @@
                     android:id="@+id/TvUserNameValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:text="Kresner Leonardo"
                     android:textSize="18sp"
                     android:textColor="@color/black"
@@ -87,6 +88,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tasker"
                     android:textColor="@color/blue"/>
+
+                <Button
+                    android:id="@+id/btnEditProfile"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/blue"
+                    android:text="Edit Profile"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp,TouchTargetSizeCheck" />
             </LinearLayout>
         </LinearLayout>
 
@@ -102,7 +113,7 @@
         app:tabTextColor="@android:color/darker_gray"
         app:tabSelectedTextColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/profileSection"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="10dp">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabAboutMe"
