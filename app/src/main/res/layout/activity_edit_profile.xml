@@ -53,6 +53,7 @@
             android:src="@drawable/user_profile"
             android:contentDescription="User Profile"
             tools:ignore="HardCodedText"
+            android:layout_marginTop="10dp"
             />
 
 
