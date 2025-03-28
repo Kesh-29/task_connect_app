@@ -39,7 +39,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_citizen_profile_page, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile_page, container, false)
 
         // Find UI elements
         tvNoCompletedTasks = view.findViewById(R.id.tvNoCompletedTasks) // Reference TextView
@@ -59,7 +59,7 @@ class ProfileFragment : Fragment() {
 
         // Set up RecyclerView
         rvTaskHistory.layoutManager = LinearLayoutManager(requireContext())
-        taskHistoryAdapter = TaskHistoryAdapter(taskHistoryList)
+        taskHistoryAdapter = TaskHistoryAdapter(requireContext(), taskHistoryList)
         rvTaskHistory.adapter = taskHistoryAdapter
 
         // Get user ID from SharedPreferences
@@ -211,7 +211,7 @@ class ProfileFragment : Fragment() {
                                 val task = Task(
                                     taskId = taskObj.getString("task_id"),
                                     title = taskObj.getString("title"),
-                                    postedBy = taskObj.optString("postedBy", "Unknown"),
+                                    postedBy = taskObj.optString("posted_by", "Unknown"),
                                     budget = taskObj.getString("budget"),
                                     status = taskObj.getString("status"),
                                     acceptedBy = taskObj.optInt("accepted_by", 0),

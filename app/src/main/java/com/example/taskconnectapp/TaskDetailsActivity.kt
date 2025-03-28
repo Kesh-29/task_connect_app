@@ -2,6 +2,7 @@ package com.example.taskconnectapp
 
 import android.content.Context
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -20,9 +21,12 @@ class TaskDetailsActivity : AppCompatActivity() {
     private var taskOwnerId: Int = -1
     private var acceptedBy: Int? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_details)
+
+
 
         val backButton = findViewById<ImageView>(R.id.backButton)
         btnTaskDetails = findViewById(R.id.btnTaskDetails)
@@ -41,6 +45,9 @@ class TaskDetailsActivity : AppCompatActivity() {
 
     private fun fetchTaskDetails(taskId: String) {
         val url = "http://10.0.2.2/taskconnect/get_task_details.php?task_id=$taskId"
+
+        val ivTaskDone = findViewById<ImageView>(R.id.IvTaskDone)
+        val ivTaskCancel = findViewById<ImageView>(R.id.IvTaskCanceled)
 
         val client = OkHttpClient()
         val request = Request.Builder().url(url).build()
@@ -76,7 +83,7 @@ class TaskDetailsActivity : AppCompatActivity() {
                             findViewById<TextView>(R.id.taskTitleDetail).text =
                                 jsonObject.optString("title", "N/A")
                             findViewById<TextView>(R.id.userName).text =
-                                jsonObject.optString("users_id", "Unknown")
+                                jsonObject.optString("postedBy", "Unknown")
                             findViewById<TextView>(R.id.UserContactNumber).text =
                                 jsonObject.optString("contact_number", "N/A")
                             findViewById<TextView>(R.id.taskBudgetDetail).text =
@@ -99,8 +106,16 @@ class TaskDetailsActivity : AppCompatActivity() {
                             // ✅ Hide button if the task is canceled
                             if (taskStatus == "canceled") {
                                 btnTaskDetails.visibility = View.GONE
+                                ivTaskCancel.visibility = View.VISIBLE
                             } else {
                                 updateTaskButton() // Only update the button if the task is not canceled
+                            }
+
+                            if (taskStatus == "completed") {
+                                btnTaskDetails.visibility = View.GONE  // Hide the button
+                                ivTaskDone.visibility = View.VISIBLE   // Show the image
+                            } else {
+                                updateTaskButton() // Keep existing button logic for other statuses
                             }
 
 
