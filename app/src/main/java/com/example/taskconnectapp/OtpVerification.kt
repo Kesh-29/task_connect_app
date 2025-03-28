@@ -8,6 +8,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
 
 class OtpVerification : AppCompatActivity() {
 
@@ -62,14 +65,41 @@ class OtpVerification : AppCompatActivity() {
     }
 
     private fun verifyOtp(otp: String) {
-        // TODO: Implement server-side OTP verification
-        if (otp == "1234") { // Temporary test OTP
-            Toast.makeText(this, "OTP Verified!", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, ChangePasswordActivity::class.java)
-            startActivity(intent)
-            finish()
-        } else {
-            Toast.makeText(this, "Invalid OTP!", Toast.LENGTH_SHORT).show()
-        }
+        val email = intent.getStringExtra("email") ?: return
+
+        val requestBody = FormBody.Builder()
+            .add("email", email)
+            .add("otp", otp)
+            .build()
+
+        val request = Request.Builder()
+            .url("http://10.0.2.2/taskconnect/verify_otp.php") // Use your actual server URL
+            .post(requestBody)
+            .build()
+
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    Toast.makeText(this@OtpVerification, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseData = response.body?.string()
+                val json = JSONObject(responseData)
+                runOnUiThread {
+                    if (json.getBoolean("success")) {
+                        Toast.makeText(this@OtpVerification, "OTP Verified!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@OtpVerification, ChangePasswordActivity::class.java)
+                        intent.putExtra("email", email) // Pass email to next screen
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this@OtpVerification, json.getString("message"), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
     }
 }

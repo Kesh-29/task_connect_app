@@ -34,7 +34,7 @@ class ResetPasswordActivity : AppCompatActivity() {
 
     private fun sendOTP(email: String) {
         val requestBody = FormBody.Builder().add("email", email).build()
-        val request = Request.Builder().url("http://taskconnect/forgot_pass_folder/send_otp.php").post(requestBody).build()
+        val request = Request.Builder().url("http://10.0.2.2/taskconnect/send_otp.php").post(requestBody).build()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

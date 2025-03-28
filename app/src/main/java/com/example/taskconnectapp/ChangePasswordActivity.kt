@@ -15,7 +15,7 @@ class ChangePasswordActivity : AppCompatActivity() {
     private lateinit var newPassword: EditText
     private lateinit var confirmPassword: EditText
     private lateinit var changePasswordButton: Button
-    private val serverUrl = "http://10.0.2.2/taskconnect/forgot_pass_folder/change_password.php" // Update for real server
+    private val serverUrl = "http://10.0.2.2/taskconnect/change_password.php" // Update for real server
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
