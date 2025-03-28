@@ -15,7 +15,7 @@
     <string name="chnage_password">Chnage Password</string>
     <string name="please_type_something_you_ll_remember">Please Type Something you\'ll remember</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="update">Update</string>
+    <string name="update">Change Password</string>
     <string name="resend_it">Resend it</string>
     <string name="didn_t_get_your_code">Didn’t Get your Code?</string>
     <string name="verify_code">Verify Code</string>

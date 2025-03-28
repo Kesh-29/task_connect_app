@@ -1,20 +1,75 @@
 package com.example.taskconnectapp
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class OtpVerification : AppCompatActivity() {
+
+    private lateinit var otp1: EditText
+    private lateinit var otp2: EditText
+    private lateinit var otp3: EditText
+    private lateinit var otp4: EditText
+    private lateinit var verifyCodeButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_otp_verification)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        otp1 = findViewById(R.id.otp1)
+        otp2 = findViewById(R.id.otp2)
+        otp3 = findViewById(R.id.otp3)
+        otp4 = findViewById(R.id.otp4)
+        verifyCodeButton = findViewById(R.id.verifyCodeButton)
+
+        val otpFields = listOf(otp1, otp2, otp3, otp4)
+
+        // Handle focus movement for OTP input
+        for (i in otpFields.indices) {
+            otpFields[i].addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if (s?.length == 1) {
+                        if (i < otpFields.size - 1) {
+                            otpFields[i + 1].requestFocus() // Move to next field
+                        }
+                    } else if (s?.isEmpty() == true && i > 0) {
+                        otpFields[i - 1].requestFocus() // Move back on delete
+                    }
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
+        }
+
+        // Verify button click
+        verifyCodeButton.setOnClickListener {
+            val enteredOtp = otp1.text.toString() + otp2.text.toString() + otp3.text.toString() + otp4.text.toString()
+
+            if (enteredOtp.length == 4) {
+                // Send OTP to server for verification
+                verifyOtp(enteredOtp)
+            } else {
+                Toast.makeText(this, "Enter a 4-digit OTP", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun verifyOtp(otp: String) {
+        // TODO: Implement server-side OTP verification
+        if (otp == "1234") { // Temporary test OTP
+            Toast.makeText(this, "OTP Verified!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ChangePasswordActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            Toast.makeText(this, "Invalid OTP!", Toast.LENGTH_SHORT).show()
         }
     }
 }

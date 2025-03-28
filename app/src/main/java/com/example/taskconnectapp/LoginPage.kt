@@ -24,9 +24,15 @@ class LoginPage : AppCompatActivity() {
         val passwordInputEditText = findViewById<TextInputEditText>(R.id.passwordEditText)
         val loginButton = findViewById<Button>(R.id.loginButton)
         val signUpButton = findViewById<Button>(R.id.btnSignUp)
+        val forgotPasswordButton = findViewById<Button>(R.id.tvForgotPassword) // 🔹 Added forgot password button
 
         signUpButton.setOnClickListener {
             val intent = Intent(this, SignUpPageActivity::class.java)
+            startActivity(intent)
+        }
+
+        forgotPasswordButton.setOnClickListener { // 🔹 Redirect to ResetPasswordActivity
+            val intent = Intent(this, ResetPasswordActivity::class.java)
             startActivity(intent)
         }
 
