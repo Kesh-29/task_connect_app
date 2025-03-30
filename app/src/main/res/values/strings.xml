@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">taskconnectapp</string>
+    <string name="Old_password">Previous Password</string>
     <string name="welcome_to_task_connect">Welcome to Task Connect</string>
     <string name="connect_people_together">Connect People together</string>
     <string name="email_or_username">Username or Email</string>
     <string name="email">Email</string>
+    <string name="new_password">New Password</string>
     <string name="password">Password</string>
     <string name="toggle_password">toggle_password</string>
     <string name="don_t_have_an_account">Don’t have an account?</string>
@@ -12,7 +14,6 @@
     <string name="login">Login</string>
     <string name="sideicon">sideicon</string>
     <string name="back">back</string>
-    <string name="chnage_password">Chnage Password</string>
     <string name="please_type_something_you_ll_remember">Please Type Something you\'ll remember</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="update">Change Password</string>

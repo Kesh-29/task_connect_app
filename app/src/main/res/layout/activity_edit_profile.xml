@@ -47,16 +47,6 @@
         app:layout_constraintTop_toBottomOf="@id/lineImage"
         >
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/user_profile"
-            android:contentDescription="User Profile"
-            tools:ignore="HardCodedText"
-            android:layout_marginTop="10dp"
-            />
-
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
@@ -134,10 +124,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:layout_marginStart="16dp"
         android:backgroundTint="@color/blue"
         android:text="Change Password"
         app:layout_constraintTop_toBottomOf="@id/UserInformation"
-        tools:ignore="HardCodedText,MissingConstraints"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardCodedText"
         tools:layout_editor_absoluteX="20dp" />
 
 
@@ -152,6 +144,12 @@
         android:paddingBottom="50sp"
         android:clipToPadding="false">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnUpdate"

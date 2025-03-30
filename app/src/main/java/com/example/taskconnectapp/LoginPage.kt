@@ -89,15 +89,19 @@ class LoginPage : AppCompatActivity() {
                             return@launch
                         }
 
+                        val userEmail = jsonResponse.optString("email", "") // Get email from JSON response
+
                         val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
                         sharedPref.edit()
                             .putInt("users_id", usersId) // Save users_id
                             .putInt("is_tasker", isTasker) // Save is_tasker
+                            .putString("user_email", userEmail) // Save email
                             .apply()
 
-                        // 🔴 Debugging: Print users_id and is_tasker after login
+                        // Debugging
                         println("DEBUG: Saved users_id -> $usersId")
                         println("DEBUG: Saved is_tasker -> $isTasker")
+                        println("DEBUG: Saved user_email -> $userEmail")
 
                         runOnUiThread {
                             Toast.makeText(this@LoginPage, "Login Successful!", Toast.LENGTH_SHORT).show()

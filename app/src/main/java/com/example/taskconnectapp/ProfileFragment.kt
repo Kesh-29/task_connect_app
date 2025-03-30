@@ -57,6 +57,15 @@ class ProfileFragment : Fragment() {
         isTasker = view.findViewById(R.id.TvIsTasker)
         questionText = view.findViewById(R.id.questionText)
 
+        val btnEditProfile = view.findViewById<Button>(R.id.btnEditProfile)
+
+        // Set click listener to open EditProfile Activity
+        btnEditProfile.setOnClickListener {
+            val intent = Intent(requireContext(), EditProfile::class.java)
+            intent.putExtra("clearFields", true) // Send an extra to indicate clearing fields
+            startActivity(intent)
+        }
+
         // Set up RecyclerView
         rvTaskHistory.layoutManager = LinearLayoutManager(requireContext())
         taskHistoryAdapter = TaskHistoryAdapter(requireContext(), taskHistoryList)
@@ -118,6 +127,16 @@ class ProfileFragment : Fragment() {
         }
 
         return view
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val sharedPref = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val userId = sharedPref.getInt("users_id", 0)
+        if (userId > 0) {
+            fetchUserProfile(userId)
+        }
     }
 
     private fun fetchUserProfile(userId: Int) {
