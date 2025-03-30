@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.*
@@ -29,6 +30,15 @@ class OtpVerification : AppCompatActivity() {
         otp3 = findViewById(R.id.otp3)
         otp4 = findViewById(R.id.otp4)
         verifyCodeButton = findViewById(R.id.verifyCodeButton)
+
+        val backButton = findViewById<ImageView>(R.id.backButton)
+
+        backButton.setOnClickListener {
+            val intent = Intent(this, LoginPage::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish()  // Close the current activity
+        }
 
         val otpFields = listOf(otp1, otp2, otp3, otp4)
 
