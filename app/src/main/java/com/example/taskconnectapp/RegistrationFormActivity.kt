@@ -26,9 +26,22 @@ class RegistrationFormActivity : AppCompatActivity() {
     private lateinit var btnRegister: Button
     private lateinit var selectedImagePreview: ImageView
 
+    private val userId by lazy {
+        getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+            .getInt("users_id", -1)
+            .also {
+                Log.d("UserID", "Retrieved user ID: $it")
+                if (it == -1) {
+                    runOnUiThread {
+                        Toast.makeText(this, "Please login first", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, LoginPage::class.java))
+                        finish()
+                    }
+                }
+            }
+    }
 
-    private val userId = 1 // Replace with actual logged-in user ID
-    private val profileUrl = "http://10.0.2.2/taskconnect/get_user_profile.php?users_id=$userId" // Localhost for emulator
+    private val profileUrl get() = "http://10.0.2.2/taskconnect/get_user_profile.php?users_id=$userId"
     private val uploadUrl = "http://10.0.2.2/taskconnect/upload_verification.php"
     private var selectedFileUri: Uri? = null
     private var selectedFilePath: String? = null
@@ -37,12 +50,16 @@ class RegistrationFormActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registration_form)
 
+        // Initialize views
         contactNumberTextView = findViewById(R.id.contactNumber)
         locationTextView = findViewById(R.id.locationTextView)
         applyText = findViewById(R.id.ApplyText)
         btnFileUpload = findViewById(R.id.btnFileUpload)
         btnRegister = findViewById(R.id.btnRegister)
         selectedImagePreview = findViewById(R.id.selectedImagePreview)
+
+        // Check if user is logged in
+        if (userId == -1) return
 
         fetchUserProfile()
 
@@ -56,12 +73,9 @@ class RegistrationFormActivity : AppCompatActivity() {
             }
         }
 
-        val backButton = findViewById<ImageView>(R.id.backButton)
-
-        backButton.setOnClickListener {
-            finish() // Go back to the previous activity
+        findViewById<ImageView>(R.id.backButton).setOnClickListener {
+            finish()
         }
-
     }
 
     private fun fetchUserProfile() {
@@ -78,7 +92,7 @@ class RegistrationFormActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call, response: Response) {
                 val responseBody = response.body?.string()
-                Log.d("UserProfile", "Response: $responseBody") // LOG RESPONSE
+                Log.d("UserProfile", "Response: $responseBody")
 
                 runOnUiThread {
                     try {
@@ -86,10 +100,14 @@ class RegistrationFormActivity : AppCompatActivity() {
                         if (jsonObject.getBoolean("success")) {
                             val user = jsonObject.getJSONObject("user")
                             val mobile = user.optString("mobile_no", "N/A")
-                            val rawLocation = user.optString("location", "N/A")
-                            val location = if (rawLocation == "null") "N/A" else rawLocation
+                            val location = when {
+                                !user.has("location") -> "Location not available"
+                                user.isNull("location") -> "No location set"
+                                user.getString("location").isNullOrEmpty() -> "Not specified"
+                                else -> user.getString("location")
+                            }
 
-                            Log.d("UserProfile", "Mobile: $mobile, Location: $location") // LOG VALUES
+                            Log.d("UserProfile", "Mobile: $mobile, Location: $location")
 
                             contactNumberTextView.text = mobile
                             locationTextView.text = location
@@ -104,7 +122,6 @@ class RegistrationFormActivity : AppCompatActivity() {
         })
     }
 
-
     private fun openFileChooser() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
@@ -118,7 +135,7 @@ class RegistrationFormActivity : AppCompatActivity() {
                 selectedFileUri = uri
                 selectedImagePreview.setImageURI(uri)
                 selectedImagePreview.visibility = ImageView.VISIBLE
-                selectedFilePath = getFilePathFromUri(this, uri) // Convert URI to file path
+                selectedFilePath = getFilePathFromUri(this, uri)
             }
         }
     }
@@ -175,12 +192,10 @@ class RegistrationFormActivity : AppCompatActivity() {
                         val jsonObject = JSONObject(responseBody ?: "{}")
                         if (jsonObject.getBoolean("success")) {
                             Toast.makeText(applicationContext, "File uploaded successfully", Toast.LENGTH_SHORT).show()
-
-                            // Redirect user to home screen
                             val intent = Intent(applicationContext, HomeActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
-                            finish() // Close current activity
+                            finish()
                         } else {
                             Toast.makeText(applicationContext, jsonObject.getString("message"), Toast.LENGTH_SHORT).show()
                         }
@@ -191,7 +206,6 @@ class RegistrationFormActivity : AppCompatActivity() {
             }
         })
     }
-
 
     private fun getFilePathFromUri(context: Context, uri: Uri): String? {
         val contentResolver = context.contentResolver
